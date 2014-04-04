@@ -45,7 +45,7 @@ namespace ItWebNet.SomeTech.SomeFeuture
         
         public enum Color 
         {
-			NoSet = 0,
+            NoSet = 0,
             Red,
             Green,
             Blue,
