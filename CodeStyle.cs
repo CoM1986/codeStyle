@@ -73,7 +73,7 @@ namespace ItWebNet.SomeTech.SomeFeuture
                     condition
                     || secondCondition
                     || 
-					(
+                    (
                         one + more * another / condition
                     )
                     && oneMoreCondition
@@ -85,11 +85,11 @@ namespace ItWebNet.SomeTech.SomeFeuture
             {
                 //Вызов метода с кучей параметров
                 LongNameMethod
-				(
+                (
                     firstParametr,
                     secondParametr,
                     AnotherLongMethod
-					(
+                    (
                         foo,
                         bah
                     ),
@@ -98,9 +98,9 @@ namespace ItWebNet.SomeTech.SomeFeuture
 
                 //Каскадный вызов методов
                 var cascadeMethodCall = 
-					FirstMethod()
-					.SecondMethod()
-					.ThirdMethod();
+                        FirstMethod()
+                        .SecondMethod()
+                        .ThirdMethod();
 
             }
 
@@ -227,15 +227,15 @@ namespace ItWebNet.SomeTech.SomeFeuture
             )
             { }
 
-			var a = allPacketNames
-				.Select
+            var a = allPacketNames
+                .Select
                 (
-					x => packet_control(x, "primaryBrokerKV").Value
-				)
-				.Max
+                    x => packet_control(x, "primaryBrokerKV").Value
+                )
+                .Max
                 (
-					x => x.IsInt ? x : (ControlValue)(o)
-				);
+                    x => x.IsInt ? x : (ControlValue)(o)
+                );
             /*****************************КОНЕЦ*********************************/
 			
 
