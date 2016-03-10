@@ -1,18 +1,17 @@
 ﻿/* Правила написания кода
- * 0. Это советы, а не строгии требования
  * 1. Стараемся избегать расположения нескольких классов в одном файле.
  * 2. Один файл должен взаимодействовать с одним пространством имен.
  * 3. Избегаем файлов с более чем 500 строками (за исключением машинно сгенерированных).
  * 4. Избегаем методов с более чем 200 строками.
  * 5. Избегаем методов содержащих более 5 аргументов. Используем структуры для передачи большого количества аргументов.
- * 6. Строка должна быть ограничена 80/120 символами.
- * 7. Не редактируем руками авто сгенерированный код.
- * 8. Избегаем комментирования очевидных вещей. Код должен сам себя пояснять. 
- * Хороший код с читаемыми именами переменных и методов не должен нуждаться в комментировании.
- * 9. Используем const только для естественных констант, таких как количество дней в неделе.
- * 10. Каждая строка кода должна читаться как "white box"
- * 11. Никогда не хардкодить строки, которые могут быть использованы пользователем, используем ресурсы. 
- * 12. Используем логгирование и трассировку
+ * 6. Строка должна быть ограничена 80 символами.
+ * 7. Вместо таба используем 4 пробела.
+ * 8. Не редактируем руками авто сгенерированный код.
+ * 9. Избегаем комментирования очевидных вещей. Код должен сам себя пояснять. 
+ * 10. Используем const только для естественных констант, таких как количество дней в неделе.
+ * 11. Каждая строка кода должна читаться как "white box"
+ * 12. Никогда не хардкодить строки, которые могут быть использованы пользователем, используем ресурсы. 
+ * 13. Используем логгирование и трассировку
  */
 //Группируем все пространства имен фреймворка 
 //и располагаем все сторонние и свои под ними
@@ -55,9 +54,10 @@ namespace ItWebNet.SomeTech.SomeFeuture
         //Camel case для локальных переменных и аргументов методов
         public void SomeMethod(int someNumber = 0)
         {
-            string longString = @"Очень Очень Очень Очень Очень Очень 
-            Очень Очень Очень Очень Очень Очень Очень Очень
-            Очень Длинная Строка";
+            string longString =
+                @"Очень Очень Очень Очень Очень Очень 
+                Очень Очень Очень Очень Очень Очень Очень Очень
+                Очень Длинная Строка";
 
             //Используем var только когда правая часть присваивания точно описывает тип переменной
             //Избегаем
@@ -72,24 +72,21 @@ namespace ItWebNet.SomeTech.SomeFeuture
             if (
                     condition
                     || secondCondition
-                    || 
-                    (
+                    || (
                         one + more * another / condition
                     )
                     && oneMoreCondition
-                ) 
+            )
             {
                 throw new SomeException("Example of exception");
             }
-            else 
+            else
             {
                 //Вызов метода с кучей параметров
-                LongNameMethod
-                (
+                LongNameMethod(
                     firstParametr,
                     secondParametr,
-                    AnotherLongMethod
-                    (
+                    AnotherLongMethod(
                         foo,
                         bah
                     ),
@@ -101,7 +98,6 @@ namespace ItWebNet.SomeTech.SomeFeuture
                         FirstMethod()
                         .SecondMethod()
                         .ThirdMethod();
-
             }
 
             //Тернарный оператор
@@ -123,122 +119,6 @@ namespace ItWebNet.SomeTech.SomeFeuture
                     Debug.Assert(false);
                     break;
             }
-
-            /*****************************ПРИМЕРЫ*********************************/
-            //Плохо
-            List<string> actionsGroupNamesToProcess = submittedActionResults.Select(ar => ar.GroupName)
-				.Union(requestedActionsGroups.Select(ag => ag.Name)).Distinct().ToList();
-            //Лучше
-            List<string> actionsGroupNamesToProcess =
-                submittedActionResults
-                    .Select(ar => ar.GroupName)
-                    .Union
-                    (
-                        requestedActionsGroups.Select(ag => ag.Name)
-                    )
-                    .Distinct()
-                    .ToList();
-
-            //Плохо
-            var actionsGroupErrors = ProcessActionsGroup(actionsGroup, withParams, submittedActionResults.Where(x => x.GroupName == actionsGroupName).ToList());
-            //Лучше
-            var actionsGroupErrors = 
-                ProcessActionsGroup
-                (
-                    actionsGroup,
-                    withParams,
-                    submittedActionResults
-                        .Where(x => x.GroupName == actionsGroupName)
-                        .ToList()
-                );
-            //Плохо
-            var invalidValueControls = vg.Controls.Where(c => (c.Validators.FirstOrDefault(v => v.Method == EValidatorMethod.controlvalue && v.ValidationGroup == vg1.Name && v.Enabled) != null) &&
-                                                                          (!c.Validators.FirstOrDefault(v => v.Method == EValidatorMethod.controlvalue && v.ValidationGroup == vg1.Name && v.Enabled).IsValid)).ToList();
-            //Лучше
-            var invalidValueControls = 
-                vg.Controls.Where
-                (
-                    c => 
-                    (
-                        c.Validators.FirstOrDefault 
-                        (
-                            v => 
-                                v.Method == EValidatorMethod.controlvalue 
-                                && v.ValidationGroup == vg1.Name 
-                                && v.Enabled
-                        ) != null
-                    ) 
-                    && 
-                    (
-                        !c.Validators.FirstOrDefault
-                        (
-                            v => 
-                                v.Method == EValidatorMethod.controlvalue 
-                                && v.ValidationGroup == vg1.Name 
-                                && v.Enabled
-                        )
-                        .IsValid
-                    )
-                )
-                .ToList();
-
-            //Плохо
-            if (carVINEmpty != null && LinkedPolicy.LinkedContent.Controls.TryGetValue(carVINEmpty.Value, out sourceControls) && sourceControls != null && sourceControls.Count == 1)
-            {
-                carVINEmptyStr = sourceControls[0].Value;
-            }
-
-            //Лучше
-            if (
-                carVINEmpty != null 
-                && LinkedPolicy.LinkedContent.Controls.TryGetValue
-                    (
-                        carVINEmpty.Value,
-                        out sourceControls
-                    ) 
-                && sourceControls != null 
-                && sourceControls.Count == 1
-            )
-            {
-                carVINEmptyStr = sourceControls[0].Value;
-            }
-
-            //Плохо
-            while (firstRun ||
-                Context.Count > 0 || Context.Count > 0 || 
-                (Context.ToProcessActionsGroup != null && !string.IsNullOrEmpty(Context.ToProcessActionsGroup.Name)) ||
-                Context.Policy.PinnedStatusChanged || Context.Policy.PinnedCalcResultsChanged || Context.Policy.PinnedPacketChanged)
-            { }
-
-			//Лучше
-            while 
-            (
-                firstRun
-                || Context.ToProcessChangedItems.Count > 0
-                || Context.ToProcessChangedParams.Count > 0
-                || 
-                (
-                    Context.ToProcessActionsGroup != null
-                    && !string.IsNullOrEmpty(Context.ToProcessActionsGroup.Name)
-                )
-                || Context.Policy.PinnedStatusChanged
-                || Context.Policy.PinnedCalcResultsChanged
-                || Context.Policy.PinnedPacketChanged
-            )
-            { }
-
-            var a = allPacketNames
-                .Select
-                (
-                    x => packet_control(x, "primaryBrokerKV").Value
-                )
-                .Max
-                (
-                    x => x.IsInt ? x : (ControlValue)(o)
-                );
-            /*****************************КОНЕЦ*********************************/
-			
-
         }
 
         private bool IsEverythingOK()
